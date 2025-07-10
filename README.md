@@ -10,6 +10,8 @@ The app includes validation rules (e.g., only cats can have lost trackers), supp
 
 * db/migrate : Folder contains migration file.
 	* db/migrate/20250710193956_create_pets.rb
+* app/models : Folder contains Pet model file
+    * app/models/pet.rb : Model related validation.
 * app/controllers : Folder contains controller file.
 	* app/controllers/pets_controller.rb
 * config/initializers/string_to_boolean.rb : This file contains casting method.
