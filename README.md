@@ -47,6 +47,9 @@ Once Ruby is installed, you can verify it works by running:
 $ ruby --version
 ruby 3.4.4
 ```
+
+### Installing Rails
+
 Run the following command to install the Rails and make it available in your terminal.
 ```
 $ gem install rails
@@ -69,7 +72,7 @@ https://github.com/kaushik0911/fantastic-fiesta.git
 ```
 cd fantastic-fiesta
 ```
-3. Run migrations - This will setup the database in SQLite (config/database.yml)
+3. Run migrations - This will create the database in SQLite and run the migrations.
 ```
 rails db:migrate
 ```
