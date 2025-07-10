@@ -25,7 +25,7 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     body = JSON.parse(response.body)
-    assert body.any? { |item| item["pet_type"] == "cat" and item["tracker_type"] == "small"}
+    assert body.any? { |item| item["pet_type"] == "cat" and item["tracker_type"] == "small" }
   end
 
   test "should not create invalid pet" do
@@ -39,9 +39,9 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
       }
     }
 
-    assert_difference 'Pet.count', 0 do
+    assert_difference "Pet.count", 0 do
       post pets_url, params: pet_params, as: :json
-      
+
       assert_response :unprocessable_entity
 
       body = JSON.parse(response.body)
