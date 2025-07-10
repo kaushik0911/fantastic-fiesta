@@ -4,8 +4,15 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+# one: {}
 # column: value
 #
-two: {}
+# two: {}
 # column: value
+
+my_pet:
+  pet_type: cat
+  tracker_type: small
+  owner_id: 1
+  in_zone: false
+  lost_tracker: false
