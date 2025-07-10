@@ -62,15 +62,25 @@ https://guides.rubyonrails.org/install_ruby_on_rails.html
 ### Setup
 
 1.  Clone the repository.
-`https://github.com/kaushik0911/fantastic-fiesta.git`
+```
+https://github.com/kaushik0911/fantastic-fiesta.git
+```
 2. Navigate to the project directory.
-`cd fantastic-fiesta`
+```
+cd fantastic-fiesta
+```
 3. Run migrations - This will setup the database in SQLite (config/database.yml)
-`rails db:migrate`
+```
+rails db:migrate
+```
 4. Start the server.
-`rails s`
+```
+rails s
+```
 5. To run tests.
-`rails t`
+```
+rails t
+```
 
 ## Example cURL
 
