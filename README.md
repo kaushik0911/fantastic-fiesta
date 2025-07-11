@@ -68,7 +68,7 @@ https://guides.rubyonrails.org/install_ruby_on_rails.html
 
 1.  Clone the repository.
 ```
-https://github.com/kaushik0911/fantastic-fiesta.git
+git clone https://github.com/kaushik0911/fantastic-fiesta.git
 ```
 2. Navigate to the project directory.
 ```
