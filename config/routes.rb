@@ -8,9 +8,13 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  resources :pets, only: [ :create, :index ] do
-    collection do
-      get "outside_zone_count"
+  namespace :api do
+    namespace :v1 do
+      resources :pets, only: [ :create, :index ] do
+        collection do
+          get "outside_zone_count"
+        end
+      end
     end
   end
 end

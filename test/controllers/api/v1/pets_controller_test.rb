@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PetsControllerTest < ActionDispatch::IntegrationTest
+class Api::V1::PetsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @pet = Pet.create!(
       pet_type: :cat,
@@ -12,7 +12,7 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get pets_url, as: :json
+    get api_v1_pets_url, as: :json
     assert_response :success
 
     body = JSON.parse(response.body)
@@ -21,7 +21,7 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get outside_zone_count" do
-    get outside_zone_count_pets_url, as: :json
+    get outside_zone_count_api_v1_pets_url, as: :json
     assert_response :success
 
     body = JSON.parse(response.body)
@@ -40,7 +40,7 @@ class PetsControllerTest < ActionDispatch::IntegrationTest
     }
 
     assert_difference "Pet.count", 0 do
-      post pets_url, params: pet_params, as: :json
+      post api_v1_pets_url, params: pet_params, as: :json
 
       assert_response :unprocessable_entity
 
