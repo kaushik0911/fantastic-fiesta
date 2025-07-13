@@ -74,15 +74,19 @@ git clone https://github.com/kaushik0911/fantastic-fiesta.git
 ```
 cd fantastic-fiesta
 ```
-3. Run migrations - This will create the database in SQLite and run the migrations.
+3. Install dependencies.
+```
+bundle install
+```
+4. Run migrations - This will create the database in SQLite and run the migrations.
 ```
 rails db:migrate
 ```
-4. Start the server.
+5. Start the server.
 ```
 rails s
 ```
-5. To run tests.
+6. To run tests.
 ```
 rails t
 ```
