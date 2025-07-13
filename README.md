@@ -123,9 +123,6 @@ curl --location 'http://127.0.0.1:3000/pets' \
 ##  Improvements
 
 1. Error handling
-2. API version controls
-3. API serializers / json.jbuilder
-4. Config solid caching properly
-
-
-includes or eager_load
+2. API version controls (eg. api/v1/pets)
+3. API json.jbuilder
+4. Config solid caching properly for dev using sqlite
