@@ -6,7 +6,7 @@ class Api::V1::PetsController < ApplicationController
 
     if params.key?(:in_zone)
       in_zone_value = params[:in_zone].to_boolean
-      @pets = pets.where(in_zone: in_zone_value)
+      @pets = @pets.where(in_zone: in_zone_value)
     end
   end
 
