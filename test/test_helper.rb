@@ -11,5 +11,9 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
+
+    def auth_headers
+      { "Authorization" => "Token #{Rails.application.credentials.api_token}" }
+    end
   end
 end

@@ -10,11 +10,12 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :pets, only: [ :create, :index ] do
+      resources :pets, only: [ :index, :create ] do
         collection do
           get "outside_zone_count"
         end
       end
+      resources :owners, only: [ :index, :create, :show ]
     end
   end
 end
