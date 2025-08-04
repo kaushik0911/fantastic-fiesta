@@ -68,13 +68,13 @@ https://guides.rubyonrails.org/install_ruby_on_rails.html
 
 1.  Clone the repository.
 ```
-https://github.com/kaushik0911/fantastic-fiesta.git
+git clone https://github.com/kaushik0911/fantastic-fiesta.git
 ```
 2. Navigate to the project directory.
 ```
 cd fantastic-fiesta
 ```
-3. Install gems
+3. Install dependencies.
 ```
 bundle install
 ```
@@ -120,15 +120,3 @@ curl --location 'http://127.0.0.1:3000/pets' \
     }
 }'
 ```
-##  Improvements
-
-1. Error handling
-2. API version controls (eg. api/v1/pets)
-3. API json.jbuilder
-4. Config solid caching properly for dev using sqlite
-5. Simple auth using fixed token
-```
-curl --location 'http://127.0.0.1:3000/api/v1/pets' \
---header 'Authorization: Token 5SEQiXwKfCElf2zpBKbRjbVbfZ1Ws9pfFo7ReDhlXC9XD1uRiH2jVce384Hu5Oqe'
-```
-6. Next..
