@@ -62,4 +62,8 @@ class PetTest < ActiveSupport::TestCase
     @pet.lost_tracker = true
     assert @pet.valid?
   end
+
+  test "pet should belong to an owner (me)" do
+    assert_equal owners(:me).id, @pet.owner_id
+  end
 end

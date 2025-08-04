@@ -1,0 +1,16 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# one:
+#   name: MyString
+#   email: MyString
+#   phone: MyString
+
+# two:
+#   name: MyString
+#   email: MyString
+#   phone: MyString
+
+me:
+  name: Kaushik
+  email: kaushik.tester@email.com
+  phone: 0123456789

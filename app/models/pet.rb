@@ -2,6 +2,8 @@ class Pet < ApplicationRecord
   enum :pet_type, [ :cat, :dog ], prefix: true
   enum :tracker_type, [ :small, :medium, :big ], prefix: true
 
+  belongs_to :owner
+
   validates :pet_type, presence: true
   validates :tracker_type, presence: true
   validates :owner_id, presence: true
