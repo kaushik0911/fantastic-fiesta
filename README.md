@@ -6,21 +6,6 @@ This project is a Ruby on Rails API that tracks pets (cats and dogs) using data 
 
 The app includes validation rules (e.g., only cats can have lost trackers), supports grouped counts by pet and tracker type, and is designed to use an in-memory database with the option to switch to a persistent one later.
 
-## Project Structure
-
-* db/migrate : Folder contains migration file.
-	* db/migrate/20250710193956_create_pets.rb
-* app/models : Folder contains Pet model file
-    * app/models/pet.rb : Model related validation.
-* app/controllers : Folder contains controller file.
-	* app/controllers/pets_controller.rb
-* config/initializers/string_to_boolean.rb : This file contains casting method.
-* config/locales/en.yml : This file is the language file.
-* test/controllers : Folder contains tests for controllers
-	* test/controllers/pets_controller_test.rb
-* test/models : Folder contains test for models
-	* test/models/pet_test.rb 
-
 ## Installation
 
 Please use This guide will walk you through installing the Ruby programming language and the Rails framework on your operating system.
@@ -95,20 +80,20 @@ rails t
 
 1. Get all the pets.
 ```
-curl --location 'http://127.0.0.1:3000/pets'
+curl --location 'http://127.0.0.1:3000/api/v1/pets'
 ``` 
 2. Query by power saving zone.
 ```
-curl --location 'http://127.0.0.1:3000/pets?in_zone=true'
+curl --location 'http://127.0.0.1:3000/api/v1/pets?in_zone=true'
 ```
 3. Number of pets currently outside the power saving zone
 grouped by pet type and tracker type.
 ```
-curl --location 'http://127.0.0.1:3000/pets/outside_zone_count'
+curl --location 'http://127.0.0.1:3000/api/v1/pets/outside_zone_count'
 ```
 4. Create new pet.
 ```
-curl --location 'http://127.0.0.1:3000/pets' \
+curl --location 'http://127.0.0.1:3000/api/v1/pets' \
 --header 'Content-Type: application/json' \
 --data '{
     "pet": {
@@ -120,15 +105,8 @@ curl --location 'http://127.0.0.1:3000/pets' \
     }
 }'
 ```
-##  Improvements
-
-1. Error handling
-2. API version controls (eg. api/v1/pets)
-3. API json.jbuilder
-4. Config solid caching properly for dev using sqlite
-5. Simple auth using fixed token
+5. Simple auth using fixed token.
 ```
 curl --location 'http://127.0.0.1:3000/api/v1/pets' \
 --header 'Authorization: Token 5SEQiXwKfCElf2zpBKbRjbVbfZ1Ws9pfFo7ReDhlXC9XD1uRiH2jVce384Hu5Oqe'
 ```
-6. Next..
