@@ -5,22 +5,18 @@ RSpec.describe "Api::V1::Pets", type: :request do
   # Use `let` to define instance variables like `@pet`
   let(:pet) { pets(:my_pet) }
 
-  # Use `let` for headers instead of a helper method if they are consistent
-  let(:auth_headers) { { "Authorization" => "Bearer some_token" } }
-
   describe "GET /api/v1/pets" do
-    # Here's where Rswag documentation for this path would go
-    # path "/api/v1/pets" do
-    #   get "Retrieves a list of all pets" do
-    #     tags "Pets"
-    #     security [bearer_auth: []]
-    #     produces "application/json"
-    #     response "200", "successful" do
-    #       schema type: :array, items: { '$ref' => '#/components/schemas/Pet' }
-    #       run_test!
-    #     end
-    #   end
-    # end
+    path "/api/v1/pets" do
+      get "Retrieves a list of all pets" do
+        tags "Pets"
+        security [ token_auth: [] ]
+        produces "application/json"
+        response "200", "successful" do
+          schema type: :array, items: { '$ref' => '#/components/schemas/Pets' }
+          run_test!
+        end
+      end
+    end
 
     it "gets a list of pets" do
       get api_v1_pets_path, headers: auth_headers, as: :json
@@ -65,7 +61,9 @@ RSpec.describe "Api::V1::Pets", type: :request do
     path "/api/v1/pets" do
       post "Creates a new pet" do
         tags "Pets"
+        security [ token_auth: [] ]
         consumes "application/json"
+        produces "application/json"
         parameter name: :pet_params, in: :body, schema: {
           type: :object,
           properties: {
@@ -81,10 +79,45 @@ RSpec.describe "Api::V1::Pets", type: :request do
             }
           }
         }
+        response "201", "Created" do
+          run_test!
+        end
+
         response "422", "Unprocessable Entity" do
+          schema  type: :object,
+                  properties: {
+                    errors: {
+                      type: :array, items: { type: :string }
+                    }
+                  }
           run_test!
         end
       end
+    end
+
+    it "creates a new pet" do
+      pet_params = {
+        pet: {
+          pet_type: "dog",
+          tracker_type: "large",
+          owner_id: 1,
+          in_zone: true,
+          lost_tracker: false
+        }
+      }
+
+      expect {
+        post api_v1_pets_path, headers: auth_headers, params: pet_params, as: :json
+      }.to change(Pet, :count).by(1)
+
+      expect(response).to have_http_status(:created)
+
+      body = JSON.parse(response.body)
+      expect(body["pet"]["pet_type"]).to eq("dog")
+      expect(body["pet"]["tracker_type"]).to eq("large")
+      expect(body["pet"]["in_zone"]).to be true
+      expect(body["pet"]["lost_tracker"]).to be false
+      expect(body["pet"]["owner_id"]).to eq(1)
     end
 
     it "does not create an invalid pet" do
@@ -97,6 +130,8 @@ RSpec.describe "Api::V1::Pets", type: :request do
           lost_tracker: false
         }
       }
+
+      puts "hi...."
 
       # Use `change` with `expect` instead of `assert_difference`
       expect {

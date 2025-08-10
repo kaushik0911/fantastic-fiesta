@@ -24,16 +24,54 @@ RSpec.configure do |config|
       paths: {},
       servers: [
         {
-          url: 'https://{defaultHost}',
+          url: 'http://{defaultHost}',
           variables: {
             defaultHost: {
-              default: 'www.example.com'
+              default: 'localhost:3000'
             }
           }
         }
-      ]
+      ],
+      components: {
+        schemas: {
+          Pets: {
+            type: :object,
+            properties: {
+              id: { type: :integer, example: 1 },
+              pet_type: { type: :string, example: 'dog' },
+              tracker_type: { type: :string, example: 'large' },
+              in_zone: { type: :boolean, example: true },
+              lost_tracker: { type: :boolean, example: false },
+              owner_id: { type: :integer, example: 1 },
+              created_at: { type: :string, format: 'date-time', example: '2023-10-01T12:00:00Z' },
+              updated_at: { type: :string, format: 'date-time', example: '2023-10-01T12:00:00Z' }
+            },
+            required: %w[id pet_type tracker_type in_zone lost_tracker owner_id created_at updated_at]
+          },
+          Owner: {
+            type: :object,
+            properties: {
+              id: { type: :integer, example: 1 },
+              name: { type: :string, example: 'John Doe' },
+              email: { type: :string, format: 'email', example: 'john.d@example.com' },
+              phone: { type: :string, example: '123-456-7890' },
+              created_at: { type: :string, format: 'date-time', example: '2023-10-01T12:00:00Z' },
+              updated_at: { type: :string, format: 'date-time', example: '2023-10-01T12:00:00Z' }
+            },
+            required: %w[id name email phone created_at updated_at]
+          }
+        },
+        securitySchemes: {
+          token_auth: {
+            type: :apiKey,
+            name: :Authorization,
+            in: :header
+          }
+        }
+      }
     }
   }
+
 
   # Specify the format of the output Swagger file when running 'rswag:specs:swaggerize'.
   # The openapi_specs configuration option has the filename including format in

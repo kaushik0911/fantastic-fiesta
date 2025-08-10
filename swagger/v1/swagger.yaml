@@ -4,25 +4,109 @@ info:
   title: API V1
   version: v1
 paths:
-  "/api/v1/pets/outside_zone_count":
-    get:
-      summary: outside_zone_count pet
-      responses:
-        '200':
-          description: successful
   "/api/v1/pets":
     get:
-      summary: list pets
+      summary: Retrieves a list of all pets
+      tags:
+      - Pets
+      security:
+      - token_auth: []
       responses:
         '200':
           description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Pets"
     post:
-      summary: create pet
+      summary: Creates a new pet
+      tags:
+      - Pets
+      security:
+      - token_auth: []
+      parameters: []
       responses:
-        '200':
-          description: successful
+        '201':
+          description: Created
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pet:
+                  type: object
+                  properties:
+                    pet_type:
+                      type: string
+                    tracker_type:
+                      type: string
+                    owner_id:
+                      type: integer
+                    in_zone:
+                      type: boolean
+                    lost_tracker:
+                      type: boolean
 servers:
-- url: https://{defaultHost}
+- url: http://{defaultHost}
   variables:
     defaultHost:
-      default: www.example.com
+      default: localhost:3000
+components:
+  schemas:
+    Pets:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        pet_type:
+          type: string
+          example: dog
+        tracker_type:
+          type: string
+          example: large
+        in_zone:
+          type: boolean
+          example: true
+        lost_tracker:
+          type: boolean
+          example: false
+        owner_id:
+          type: integer
+          example: 1
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-10-01T12:00:00Z'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2023-10-01T12:00:00Z'
+      required:
+      - id
+      - pet_type
+      - tracker_type
+      - in_zone
+      - lost_tracker
+      - owner_id
+      - created_at
+      - updated_at
+  securitySchemes:
+    token_auth:
+      type: apiKey
+      name: Authorization
+      in: header
