@@ -2,6 +2,16 @@
 
 require 'rails_helper'
 
+# Load all schema files from the 'schemas' directory
+schemas = Dir.glob(Rails.root.join('swagger', 'schemas', '*.rb')).each_with_object({}) do |file_path, hash|
+  # Require each file to define the schema constant (e.g., OWNER_SCHEMA)
+  require file_path
+
+  # The schema constant name is derived from the file name
+  constant_name = File.basename(file_path, '.rb').upcase
+  hash[constant_name.to_sym] = Object.const_get(constant_name)
+end
+
 RSpec.configure do |config|
   # Specify a root folder where Swagger JSON files are generated
   # NOTE: If you're using the rswag-api to serve API descriptions, you'll need
@@ -33,42 +43,16 @@ RSpec.configure do |config|
         }
       ],
       components: {
-        schemas: {
-          Pets: {
-            type: :object,
-            properties: {
-              id: { type: :integer, example: 1 },
-              pet_type: { type: :string, example: 'dog' },
-              tracker_type: { type: :string, example: 'large' },
-              in_zone: { type: :boolean, example: true },
-              lost_tracker: { type: :boolean, example: false },
-              owner_id: { type: :integer, example: 1 },
-              created_at: { type: :string, format: 'date-time', example: '2023-10-01T12:00:00Z' },
-              updated_at: { type: :string, format: 'date-time', example: '2023-10-01T12:00:00Z' }
-            },
-            required: %w[id pet_type tracker_type in_zone lost_tracker owner_id created_at updated_at]
-          },
-          Owner: {
-            type: :object,
-            properties: {
-              id: { type: :integer, example: 1 },
-              name: { type: :string, example: 'John Doe' },
-              email: { type: :string, format: 'email', example: 'john.d@example.com' },
-              phone: { type: :string, example: '123-456-7890' },
-              created_at: { type: :string, format: 'date-time', example: '2023-10-01T12:00:00Z' },
-              updated_at: { type: :string, format: 'date-time', example: '2023-10-01T12:00:00Z' }
-            },
-            required: %w[id name email phone created_at updated_at]
-          }
-        },
+        schemas: schemas,
         securitySchemes: {
           token_auth: {
             type: :apiKey,
-            name: :Authorization,
+            name: 'Authorization',
             in: :header
           }
         }
-      }
+      },
+      security: [ { token_auth: [] } ]
     }
   }
 
