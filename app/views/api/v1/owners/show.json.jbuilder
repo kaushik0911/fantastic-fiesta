@@ -9,6 +9,7 @@ if @owner.present?
 
     json.pets @owner.pets do |pet|
       json.id pet.id
+      json.owner_id pet.owner_id
       json.pet_type pet.pet_type
       json.tracker_type pet.tracker_type
       json.in_zone pet.in_zone
