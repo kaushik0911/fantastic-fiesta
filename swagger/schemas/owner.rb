@@ -7,5 +7,5 @@ OWNER = {
     phone: { type: :string, example: '123-456-7890' },
     created_at: { type: :string, format: 'date-time', example: '2023-10-01T12:00:00Z' }
   },
-  required: [ "id", "name", "email", "phone", "created_at" ]
+  required: [ 'id', 'name', 'email', 'phone', 'created_at' ]
 }.freeze

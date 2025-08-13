@@ -1,4 +1,4 @@
-PET_OBJ = {
+PET = {
   type: :object,
   properties: {
     id: { type: :integer, example: 1 },
@@ -10,15 +10,5 @@ PET_OBJ = {
     owner_id: { type: :integer, example: 1 },
     updated_at: { type: :string, format: 'date-time', example: '2023-10-01T12:00:00Z' }
   },
-  required: [ "id" ]
+  required: [ 'id', 'pet_type', 'tracker_type', 'in_zone', 'lost_tracker', 'created_at', 'owner_id' ]
 }.freeze
-
-PET = {
-  type: :object,
-  properties: {
-    pet: {}
-  },
-  required: [ "pet" ]
-}.freeze
-
-PET[:type][:properties][:pet].merge!(PET_OBJ)

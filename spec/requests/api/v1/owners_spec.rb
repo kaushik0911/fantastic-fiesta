@@ -3,28 +3,6 @@ require 'rails_helper'
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/owners', type: :request do
-  let(:Authorization) { "#{auth_headers['Authorization']}" }
-
-  let(:owner_params) do
-    {
-      owner: {
-        name: 'Jane Doe',
-        email: 'jane@example.com',
-        phone: '123-456-7890'
-      }
-    }
-  end
-
-  let(:invalid_owner_params) do
-    {
-      owner: {
-        name: 'Jane Doe',
-        email: 'jane#example.com',
-        phone: '123-456-7890'
-      }
-    }
-  end
-
   describe "GET /api/v1/owners" do
     path '/api/v1/owners' do
       get 'Retrieves a list of all owners' do
@@ -119,7 +97,7 @@ RSpec.describe 'api/v1/owners', type: :request do
 
         response '200', 'successful' do
           let(:id) { Owner.create!(owner_params[:owner]).id }
-          schema '$ref' => '#/components/schemas/OWNER_INCLUDE_PETS'
+          schema '$ref' => '#/components/schemas/OWNER_SHOW'
           run_test!
         end
 

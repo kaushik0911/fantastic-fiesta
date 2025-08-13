@@ -1,4 +1,4 @@
-OWNER_INCLUDE_PETS = {
+OWNER_SHOW = {
   type: :object,
   properties: {
     owner: {
@@ -11,5 +11,5 @@ OWNER_INCLUDE_PETS = {
       })
     }
   },
-  required: [ "owner" ]
+  required: [ 'owner' ]
 }.freeze
