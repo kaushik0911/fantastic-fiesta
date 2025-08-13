@@ -1,0 +1,319 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/owners":
+    get:
+      summary: Retrieves a list of all owners
+      tags:
+      - Owners
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/OWNER"
+    post:
+      summary: Creates a new owner
+      tags:
+      - Owners
+      security:
+      - token_auth: []
+      parameters: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/OWNER"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Jane Doe
+                email:
+                  type: string
+                  format: email
+                  example: Jane@example.com
+                phone:
+                  type: string
+                  example: 123-456-7890
+              required:
+              - name
+              - email
+              - phone
+  "/api/v1/owners/{id}":
+    get:
+      summary: Retrieves a specific owner
+      tags:
+      - Owner
+      security:
+      - token_auth: []
+      parameters:
+      - name: id
+        in: path
+        description: Owner ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/OWNER_SHOW"
+        '404':
+          description: not found
+  "/api/v1/pets":
+    get:
+      summary: Retrieves a list of all pets
+      tags:
+      - Pets
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/PET"
+    post:
+      summary: Creates a new pet
+      tags:
+      - Pets
+      parameters: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PET_SHOW"
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pet:
+                  type: object
+                  properties:
+                    pet_type:
+                      type: string
+                      example: dog
+                    tracker_type:
+                      type: string
+                      example: small
+                    owner_id:
+                      type: integer
+                      example: 1
+                    in_zone:
+                      type: boolean
+                      example: false
+                    lost_tracker:
+                      type: boolean
+                      example: false
+  "/api/v1/pets/outside_zone_count":
+    get:
+      summary: Gets a count of pets outside their zone
+      tags:
+      - Pets
+      description: Returns a list of pets that are outside their designated zones
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/PET_OUTSIDE_ZONE_COUNT"
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000
+components:
+  schemas:
+    OWNER:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: John Doe
+        email:
+          type: string
+          format: email
+          example: john.d@example.com
+        phone:
+          type: string
+          example: 123-456-7890
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-10-01T12:00:00Z'
+      required:
+      - id
+      - name
+      - email
+      - phone
+      - created_at
+    OWNER_SHOW:
+      type: object
+      properties:
+        owner:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            name:
+              type: string
+              example: John Doe
+            email:
+              type: string
+              format: email
+              example: john.d@example.com
+            phone:
+              type: string
+              example: 123-456-7890
+            created_at:
+              type: string
+              format: date-time
+              example: '2023-10-01T12:00:00Z'
+            pets:
+              type: array
+              items:
+                "$ref": "#/components/schemas/PET"
+      required:
+      - owner
+    PET:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        pet_type:
+          type: string
+          example: dog
+        tracker_type:
+          type: string
+          example: small
+        in_zone:
+          type: boolean
+          example: true
+        lost_tracker:
+          type: boolean
+          example: false
+        created_at:
+          type: string
+          format: date-time
+          example: '2023-10-01T12:00:00Z'
+        owner_id:
+          type: integer
+          example: 1
+        updated_at:
+          type: string
+          format: date-time
+          example: '2023-10-01T12:00:00Z'
+      required:
+      - id
+      - pet_type
+      - tracker_type
+      - in_zone
+      - lost_tracker
+      - created_at
+      - owner_id
+    PET_OUTSIDE_ZONE_COUNT:
+      type: object
+      properties:
+        pet_type:
+          type: string
+        tracker_type:
+          type: string
+        count:
+          type: integer
+          example: 5
+      required:
+      - pet_type
+      - tracker_type
+      - count
+      description: Count of pets outside a specific zone
+    PET_SHOW:
+      type: object
+      properties:
+        pet:
+          type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+            pet_type:
+              type: string
+              example: dog
+            tracker_type:
+              type: string
+              example: small
+            in_zone:
+              type: boolean
+              example: true
+            lost_tracker:
+              type: boolean
+              example: false
+            created_at:
+              type: string
+              format: date-time
+              example: '2023-10-01T12:00:00Z'
+            owner_id:
+              type: integer
+              example: 1
+            updated_at:
+              type: string
+              format: date-time
+              example: '2023-10-01T12:00:00Z'
+      required:
+      - pet
+  securitySchemes:
+    token_auth:
+      type: apiKey
+      name: Authorization
+      in: header
+security:
+- token_auth: []

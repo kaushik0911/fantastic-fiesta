@@ -15,6 +15,8 @@ class Api::V1::PetsController < ApplicationController
 
     if @pet.save
       Rails.cache.delete("outside_zone_count") if @pet.in_zone == false
+
+      render :create, status: :created
     else
       render json: { errors: @pet.errors.full_messages }, status: :unprocessable_entity
     end

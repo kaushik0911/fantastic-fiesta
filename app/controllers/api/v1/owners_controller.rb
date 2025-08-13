@@ -8,6 +8,8 @@ class Api::V1::OwnersController < ApplicationController
 
     unless @owner.save
       render json: { errors: @owner.errors.full_messages }, status: :unprocessable_entity
+    else
+      render json: @owner, status: :created
     end
   end
 

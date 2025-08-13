@@ -2,6 +2,8 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 
+require_relative "support/api_helpers"
+
 module ActiveSupport
   class TestCase
     # Run tests in parallel with specified workers
@@ -12,8 +14,6 @@ module ActiveSupport
 
     # Add more helper methods to be used by all tests here...
 
-    def auth_headers
-      { "Authorization" => "Token #{Rails.application.credentials.api_token}" }
-    end
+    include ApiHelpers
   end
 end
