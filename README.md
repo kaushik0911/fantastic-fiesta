@@ -1,25 +1,10 @@
 #  Pet Tracking Application
 
-##  Project Overview
-
 This project is a Ruby on Rails API that tracks pets (cats and dogs) using data from different types of trackers. It allows external systems to send pet tracking data through a RESTful API, stores that information, and provides endpoints to query which pets are currently outside the power-saving zone.
 
 The app includes validation rules (e.g., only cats can have lost trackers), supports grouped counts by pet and tracker type, and is designed to use an in-memory database with the option to switch to a persistent one later.
 
-## Project Structure
-
-* db/migrate : Folder contains migration file.
-	* db/migrate/20250710193956_create_pets.rb
-* app/models : Folder contains Pet model file
-    * app/models/pet.rb : Model related validation.
-* app/controllers : Folder contains controller file.
-	* app/controllers/pets_controller.rb
-* config/initializers/string_to_boolean.rb : This file contains casting method.
-* config/locales/en.yml : This file is the language file.
-* test/controllers : Folder contains tests for controllers
-	* test/controllers/pets_controller_test.rb
-* test/models : Folder contains test for models
-	* test/models/pet_test.rb 
+Development follows a test-driven development (TDD) approach, with comprehensive RSpec and Rswag tests ensuring correctness, maintainability, and up-to-date API documentation.
 
 ## Installation
 
@@ -64,7 +49,7 @@ Rails 8.0.0
 For other operating systems please refer following link.
 https://guides.rubyonrails.org/install_ruby_on_rails.html
 
-### Setup
+### Setup & Run the Application
 
 1.  Clone the repository.
 ```
@@ -90,33 +75,18 @@ rails s
 ```
 rails t
 ```
+and,
+```
+bundle exec rspec
+```
+7. To generate API documentation.
+```
+rake rswag:specs:swaggerize
+```
+8. Open the API documentation in your browser and you try the API endpoints.
+```
+http://localhost:3000/api-docs/index.html
+```
+and Auth key is `5SEQiXwKfCElf2zpBKbRjbVbfZ1Ws9pfFo7ReDhlXC9XD1uRiH2jVce384Hu5Oqe` since this is a sandbox project.
 
-## Example cURL
-
-1. Get all the pets.
-```
-curl --location 'http://127.0.0.1:3000/pets'
-``` 
-2. Query by power saving zone.
-```
-curl --location 'http://127.0.0.1:3000/pets?in_zone=true'
-```
-3. Number of pets currently outside the power saving zone
-grouped by pet type and tracker type.
-```
-curl --location 'http://127.0.0.1:3000/pets/outside_zone_count'
-```
-4. Create new pet.
-```
-curl --location 'http://127.0.0.1:3000/pets' \
---header 'Content-Type: application/json' \
---data '{
-    "pet": {
-        "pet_type": "cat",
-        "tracker_type": "small",
-        "owner_id": 1,
-        "in_zone": false,
-        "lost_tracker": false
-    }
-}'
-```
+![Alt text](1-image.png)
