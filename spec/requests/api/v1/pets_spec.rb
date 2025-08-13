@@ -68,11 +68,11 @@ RSpec.describe "Api::V1::Pets", type: :request do
             pet: {
               type: :object,
               properties: {
-                pet_type: { type: :string },
-                tracker_type: { type: :string },
-                owner_id: { type: :integer },
-                in_zone: { type: :boolean },
-                lost_tracker: { type: :boolean }
+                pet_type: { type: :string, example: 'dog' },
+                tracker_type: { type: :string, example: 'small' },
+                owner_id: { type: :integer, example: 1 },
+                in_zone: { type: :boolean, example: false },
+                lost_tracker: { type: :boolean, example: false }
               }
             }
           }
@@ -103,7 +103,6 @@ RSpec.describe "Api::V1::Pets", type: :request do
       }.to change { Pet.count }.by(1)
 
       expect(response).to have_http_status(:created)
-
 
       body = JSON.parse(response.body)
       expect(body["pet"]["pet_type"]).to eq("dog")

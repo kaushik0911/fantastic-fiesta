@@ -3,12 +3,7 @@ PET_SHOW = {
   properties: {
     pet: {
       type: :object,
-      properties: PET[:properties].merge({
-        pets: {
-          type: :array,
-          items: { '$ref' => '#/components/schemas/PET' }
-        }
-      })
+      properties: PET[:properties]
     }
   },
   required: [ 'pet' ]
