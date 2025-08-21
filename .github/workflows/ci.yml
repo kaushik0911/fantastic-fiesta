@@ -3,7 +3,9 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [ main sandbox/ci-update ]
+    branches:
+      - main
+      - sandbox/ci-update
 
 jobs:
   scan_ruby:
