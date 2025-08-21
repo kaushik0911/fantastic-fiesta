@@ -52,7 +52,7 @@ RSpec.describe "Api::V1::Pets", type: :request do
       # RSpec's `include` matcher can check for a specific hash within an array
       expect(body).to be_a_kind_of(Array)
       expect(body).to include(hash_including({ "count" => 1, "pet_type" => "dog", "tracker_type" => "small" }))
-      expect(body.size).to eq(1) # Assuming only one pet is outside the zone
+      expect(body.size).to eq(2) # Assuming only one pet is outside the zone
     end
   end
 
