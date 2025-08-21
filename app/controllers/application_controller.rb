@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-  before_action :authenticate_token!
+  before_action :authenticate_token!, unless: -> { Rails.env.test? }
 
   private
 

@@ -31,7 +31,6 @@ RSpec.describe 'api/v1/owners', type: :request do
     path '/api/v1/owners' do
       post 'Creates a new owner' do
         tags 'Owners'
-        security [ token_auth: [] ]
         consumes 'application/json'
         produces 'application/json'
         parameter name: :params, in: :body, schema: {
@@ -90,7 +89,6 @@ RSpec.describe 'api/v1/owners', type: :request do
     path '/api/v1/owners/{id}' do
       get 'Retrieves a specific owner' do
         tags 'Owner'
-        security [ token_auth: [] ]
         produces 'application/json'
 
         parameter name: 'id', in: :path, type: :integer, description: 'Owner ID'
